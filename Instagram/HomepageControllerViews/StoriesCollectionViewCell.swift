@@ -19,7 +19,8 @@ class StoriesCollectionViewCell: UICollectionViewCell {
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initialize()
+        setupViews()
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -65,25 +66,33 @@ class StoriesCollectionViewCell: UICollectionViewCell {
     }()
 }
 
-// MARK: - Private methods
+//MARK: - Setup views and constraints methods
+
 private extension StoriesCollectionViewCell {
-    func initialize() {
+    
+    func setupViews() {
         contentView.addSubview(imageView)
+        contentView.addSubview(usernameLabel)
+        contentView.addSubview(plusButton)
+        contentView.addSubview(circleImageView)
+    }
+    
+    func setupConstraints() {
         imageView.snp.makeConstraints { make in
             make.size.equalTo(UIConstants.imageSize)
             make.leading.top.trailing.equalToSuperview().inset(UIConstants.imageToCellInset)
         }
-        contentView.addSubview(usernameLabel)
+        
         usernameLabel.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview().inset(UIConstants.labelToCellInset)
             make.top.equalTo(imageView.snp.bottom).offset(UIConstants.imageToLabelOffset)
         }
-        contentView.addSubview(plusButton)
+        
         plusButton.snp.makeConstraints { make in
             make.trailing.bottom.equalTo(imageView)
             make.size.equalTo(UIConstants.plusButtonSize)
         }
-        contentView.addSubview(circleImageView)
+        
         circleImageView.snp.makeConstraints { make in
             make.center.equalTo(imageView)
             make.size.equalTo(UIConstants.circleSize)
